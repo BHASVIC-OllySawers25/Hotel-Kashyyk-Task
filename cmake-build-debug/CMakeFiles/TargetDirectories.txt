@@ -1,0 +1,3 @@
+C:/Users/nate.whelan25/Downloads/Hotel-Kashyyk-Task/cmake-build-debug/CMakeFiles/Hotel_Kashyyk_Task.dir
+C:/Users/nate.whelan25/Downloads/Hotel-Kashyyk-Task/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/nate.whelan25/Downloads/Hotel-Kashyyk-Task/cmake-build-debug/CMakeFiles/rebuild_cache.dir
