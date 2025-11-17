@@ -56,13 +56,12 @@ void checkIn(void) {
 }
 
 void logIn(void) {
-    char enteredID[15];
-    char choice;
     bool attempt = true;
     bool validID = false;
     puts(bookingIDs[0]);
     while (validID == false && attempt == true) {
-        choice = 'a';
+        char enteredID[15];
+        char choice;
         printf("Enter bookingID: ");
         gets(enteredID);
 
