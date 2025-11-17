@@ -47,6 +47,7 @@ char mainMenu(void) {
     char choice;
     printf("\n1. Check-In\n2. Log-In\n3. End Program\nEnter Choice: ");
     scanf("%c",&choice);
+    fflush(stdin);
     return choice;
 }
 
@@ -61,8 +62,10 @@ void logIn(void) {
     bool validID = false;
     puts(bookingIDs[0]);
     while (validID == false && attempt == true) {
+        choice = 'a';
         printf("Enter bookingID: ");
         gets(enteredID);
+
         for (int i=0;i<6;i++) {
             if (strcmp(enteredID,bookingIDs[i])==0) {
                 validID = true;
@@ -70,17 +73,20 @@ void logIn(void) {
         }
         if (validID == false) {
             printf("Invalid ID entered.\n");
-            do {
+            while (tolower(choice)!= 'y' && tolower(choice)!='n') {
                 printf("Would you like to return to main menu? (y/n): ");
                 scanf("%c",&choice);
-                switch (toupper(choice)) {
-                    case 'Y':
+                fflush(stdin);
+                switch (tolower(choice)) {
+                    case 'y':
                         attempt = false;
-                    break;
+                        break;
+                    case 'n':
+                        break;
                     default:
                         printf("Invalid Choice.\n");
                 }
-            }while (toupper(choice)!= 'Y' || toupper(choice)!='N');
+            }
         }
     }
     if (validID == true) {
