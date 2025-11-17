@@ -1,15 +1,15 @@
+#include <ctype.h>
 #include <stdio.h>
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
-#include <ctype.h>
 
 int availableRooms[6] = {0,0,0,0,0,0};
 int roomPrices[6] = {100,100,85,75,75,50};
 int boards[6] = {0,0,0,0,0,0};
-int boardPrices[3] = {20,15,5};
+int boardPrices[3] = {5,15,20};
 char mainGuestName[6][2][10];
-char bookingIDs[6][15];
+char bookingIDs[6][15] = {"TempID1234"};
 int numAdults[6] = {0,0,0,0,0,0};
 int numChilds[6] = {0,0,0,0,0,0};
 int days[6] = {0,0,0,0,0,0};
@@ -29,17 +29,18 @@ int main(void){
         switch (mainMenu()) {
             case '1':
                 checkIn();
-            break;
+                break;
             case '2':
                 logIn();
-            break;
+                break;
             case '3':
                 run = 0;
-            break;
+                break;
             default:
                 printf("Invalid Choice.\n");
         }
     }
+
     return 0;
 }
 
@@ -47,6 +48,8 @@ char mainMenu(void) {
     char choice;
     printf("\n1. Check-In\n2. Log-In\n3. End Program\nEnter Choice: ");
     scanf("%c",&choice);
+    fflush(stdin);
+
     return choice;
 }
 
@@ -76,7 +79,7 @@ void logIn(void) {
                 switch (toupper(choice)) {
                     case 'Y':
                         attempt = false;
-                    break;
+                        break;
                     default:
                         printf("Invalid Choice.\n");
                 }
@@ -86,7 +89,6 @@ void logIn(void) {
     if (validID == true) {
         loggedIn();
     }
-
 }
 
 void loggedIn(void) {
