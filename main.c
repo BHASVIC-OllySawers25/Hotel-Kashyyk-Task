@@ -1,5 +1,3 @@
-///checkin function///
-// this is a checkin function for the hotel coding task
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -8,23 +6,30 @@
 #include <stdbool.h>
 
 
-// the arrays used (might have to be moved when integrated w main code)
-int availableRooms[6];
+// the gloabl arrays + variables used
+int availableRooms[6] = {0,0,0,0,0,0};
+int roomPrices[6] = {100,100,85,75,75,50};
+int guestRoomPrice[6] = {0,0,0,0,0,0};
+int boards[6] = {0,0,0,0,0,0};
+int boardPrices[3] = {5,15,20};
 char mainGuestName[6][2][10];
 char bookingIDs[6][15];
-int numAdults[6];
-int numChilds[6];
-int days[6];
-int DOBs[6][3];
-int boards[6];
-int newspaper[6];
-int roomPrices[6];
-
-
-// the bools used (these ones might also have to be moved when integrated w main code)
+int numAdults[6] = {0,0,0,0,0,0};
+int numChilds[6] = {0,0,0,0,0,0};
+int days[6] = {0,0,0,0,0,0};
+int DOBs[6][3] = {{0,0,0},{0,0,0},{0,0,0},{0,0,0},{0,0,0},{0,0,0}};
+int newspaper[6] = {0,0,0,0,0,0};
+int tableAvailability[3][1] = {0,0,0};
+int loggedInRoomIndex;
 bool isLoggedIn;
 bool run;
 
+// Declaring Functions
+int loggedInMenu(void);
+void loggedIn(void);
+void checkOut(void);
+void bookTable(void);
+float discount(int dateOfBirth[3]);
 
 // makeID()
 // this function generates the userID, js surname + random 3 digit number (100-999)
@@ -80,6 +85,7 @@ void loginGateway(char bookingIDs[6][15], char *autoID) {
         // from main menu
         printf("Enter your userID: ");
         scanf("%s", id);
+        fflush(stdin);
     } else {
         // automatically from checkin function
         strcpy(id, autoID);
@@ -93,6 +99,13 @@ void loginGateway(char bookingIDs[6][15], char *autoID) {
     }
 
     printf("Welcome back %s, in room %d.\n", id, room);
+
+    for (int i=0;i<6;i++) {
+        if (strcmp(id,bookingIDs[i])==0) {
+            loggedInRoomIndex = i;
+        }
+    }
+    printf("Index: %d",loggedInRoomIndex);
 
     // now the login function is run
     logIn(id, room);
@@ -134,6 +147,7 @@ void checkIn() {
 
                 int choice1;
                 scanf("%d", &choice1);
+                fflush(stdin);
 
                 if(choice1 == 1) {
                     screen = 2;  // start the never ending data entry
@@ -152,8 +166,10 @@ void checkIn() {
                 printf("========================================\n");
                 printf("Enter main guest's first name: ");
                 scanf("%s", firstName);
+                fflush(stdin);
                 printf("Enter main guest's surname: ");
                 scanf("%s", lastName);
+                fflush(stdin);
 
                 screen = 3;  // got to scrn 3
                 break;
@@ -167,10 +183,13 @@ void checkIn() {
                 printf("Enter date of birth (DD/MM/YY format)\n");
                 printf("Day: ");
                 scanf("%d", &day);
+                fflush(stdin);
                 printf("Month: ");
                 scanf("%d", &month);
+                fflush(stdin);
                 printf("Year: ");
                 scanf("%d", &year);
+                fflush(stdin);
 
                 screen = 4;  // go to scrn 4
                 break;
@@ -183,6 +202,7 @@ void checkIn() {
                 printf("========================================\n");
                 printf("Enter total number of guests (max 4): ");
                 scanf("%d", &totalGuests);
+                fflush(stdin);
 
                 // make sure its acc a max of 4
                 if(totalGuests > 4 || totalGuests < 1) {
@@ -195,8 +215,10 @@ void checkIn() {
 
                 printf("How many adults? ");
                 scanf("%d", &adults);
+                fflush(stdin);
                 printf("How many children (16 or under)? ");
                 scanf("%d", &children);
+                fflush(stdin);
 
                 // make sure the numbers acc add up the total they said were staying
                 if(adults + children != totalGuests) {
@@ -218,6 +240,7 @@ void checkIn() {
                 printf("========================================\n");
                 printf("How many days will you be staying? ");
                 scanf("%d", &stayDays);
+                fflush(stdin);
 
                 if(stayDays < 1) {
                     printf("\nERROR: Must stay at least 1 day.\n");
@@ -242,6 +265,7 @@ void checkIn() {
                 printf("2. No\n");
                 printf("\nEnter choice: ");
                 scanf("%d", &wantNewspaper);
+                fflush(stdin);
 
                 if(wantNewspaper == 1) {
                     wantNewspaper = 1;
@@ -264,6 +288,7 @@ void checkIn() {
                 printf("3. Full Board (£20 per person per day)\n");
                 printf("\nEnter choice: ");
                 scanf("%d", &boardChoice);
+                fflush(stdin);
 
                 if(boardChoice < 1 || boardChoice > 3) {
                     printf("\nERROR: Invalid choice. Please select 1, 2, or 3.\n");
@@ -284,6 +309,7 @@ void checkIn() {
                 printf("========================================\n");
                 printf("Enter maximum room price per night (0 for all rooms): £");
                 scanf("%d", &budget);
+                fflush(stdin);
 
                 screen = 1;  // back to main checkin scrn after resetting budget (idk why this is the only way that works but it is)
                 break;
@@ -327,6 +353,7 @@ void checkIn() {
 
             int choice9;
             scanf("%d", &choice9);
+            fflush(stdin);
 
             if(choice9 == 1) {
                 screen = 10;
@@ -345,6 +372,7 @@ void checkIn() {
                 printf("========================================\n");
                 printf("Enter room number (1-6): ");
                 scanf("%d", &roomChoice);
+                fflush(stdin);
 
                 // quickly validate the room choice
                 if(roomChoice < 1 || roomChoice > 6) {
@@ -419,7 +447,64 @@ void checkIn() {
     }
 }
 
-int main() {
+void loggedIn(void) {
+    isLoggedIn = true;
+    while(isLoggedIn==true) {
+        switch (loggedInMenu()) {
+            case 1:
+                checkOut();
+            break;
+            case 2:
+                bookTable();
+            break;
+            case 3:
+                isLoggedIn = false;
+            break;
+            default:
+                printf("Invalid Choice.\n");
+        }
+    }
+}
+
+int loggedInMenu(void) {
+    int choice;
+    printf("\n========================================\n");
+    printf("            KASHYYYK HOTEL\n");
+    printf("========================================\n");
+    printf("1. Check Out\n");
+    printf("2. Book Table\n");
+    printf("3. Log Out\n");
+    printf("Enter choice: ");
+    scanf("%d",&choice);
+    fflush(stdin);
+    return choice;
+}
+
+float discount(int dateOfBirth[3]) {
+    float discount = 1;
+    int year, month, day;
+    time_t rawTime;
+    time(&rawTime);
+    year = (rawTime /60/60/24/365) +1970;
+    if (year-dateOfBirth[3] > 65) {
+        discount = 0.9;
+    }
+    return discount;
+}
+
+void checkOut(void) {
+    float roomCost, adultBoardCost,childBoardCost,newspaper;
+    roomCost = roomPrices[loggedInRoomIndex] * days[loggedInRoomIndex] * discount(DOBs[loggedInRoomIndex]);
+    adultBoardCost = boardPrices[boards[loggedInRoomIndex]-1] * numAdults[loggedInRoomIndex] * days[loggedInRoomIndex];
+
+
+}
+
+void bookTable(void) {
+
+}
+
+int main(void) {
     // reset the variables to appropriate starting values js incase program ended
     for (int i = 0; i < 6; i++) {
         availableRooms[i] = 0;
@@ -454,6 +539,7 @@ int main() {
         printf("3. Quit\n");
         printf("Enter choice: ");
         scanf("%d", &choice);
+        fflush(stdin);
 
         if (choice == 1) {
             checkIn();      //type shi ive been workin on
