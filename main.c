@@ -9,7 +9,6 @@
 // the gloabl arrays + variables used
 int availableRooms[6] = {0,0,0,0,0,0};
 int roomPrices[6] = {100,100,85,75,75,50};
-int guestRoomPrice[6] = {0,0,0,0,0,0};
 int boards[6] = {0,0,0,0,0,0};
 int boardPrices[3] = {5,15,20};
 char mainGuestName[6][2][10];
@@ -19,8 +18,9 @@ int numChilds[6] = {0,0,0,0,0,0};
 int days[6] = {0,0,0,0,0,0};
 int DOBs[6][3] = {{0,0,0},{0,0,0},{0,0,0},{0,0,0},{0,0,0},{0,0,0}};
 int newspaper[6] = {0,0,0,0,0,0};
-int tableAvailability[3][1] = {0,0,0};
+int tableAvailability[2][3] = {{0,0,0},{0,0,0}};
 int loggedInRoomIndex;
+int tableData[3] = {0,0,0};
 bool isLoggedIn;
 bool run;
 
@@ -53,14 +53,13 @@ void makeID(char surname[], char* output) {
 void logIn(char* id, int room) {
 
     // just make logged in status = 1, meaning true
-    isLoggedIn = 1;
+    isLoggedIn = true;
 
     printf("\n========================================\n");
     printf("     LOGIN SUCCESSFUL!\n");
     printf("========================================\n");
 
-    // this is where yall gotta add the logged in menu and its other shi
-    printf("This means you would be on the login menu rn?\n");
+    loggedIn();
 }
 
 
@@ -485,7 +484,7 @@ float discount(int dateOfBirth[3]) {
     int year, month, day;
     time_t rawTime;
     time(&rawTime);
-    year = (rawTime /60/60/24/365) +1970;
+    year = (rawTime /60/60/24/365.25) +1970;
     if (year-dateOfBirth[3] > 65) {
         discount = 0.9;
     }
@@ -493,10 +492,40 @@ float discount(int dateOfBirth[3]) {
 }
 
 void checkOut(void) {
-    float roomCost, adultBoardCost,childBoardCost,newspaper;
-    roomCost = roomPrices[loggedInRoomIndex] * days[loggedInRoomIndex] * discount(DOBs[loggedInRoomIndex]);
-    adultBoardCost = boardPrices[boards[loggedInRoomIndex]-1] * numAdults[loggedInRoomIndex] * days[loggedInRoomIndex];
+    float roomCost, adultBoardCost,childBoardCost,newspaperCost = 0,totalBoardCost, totalBill;
+    int confirm = 0;
+    printf("Are you sure you want to check out?\n1. Yes\n2. No\nEnter Choice: ");
+    scanf("%d",&confirm);
+    if (confirm == 1) {
+        roomCost = roomPrices[loggedInRoomIndex] * days[loggedInRoomIndex] * discount(DOBs[loggedInRoomIndex]);
+        adultBoardCost = boardPrices[boards[loggedInRoomIndex]-1] * numAdults[loggedInRoomIndex] * days[loggedInRoomIndex];
+        if (newspaper[loggedInRoomIndex]==1) {newspaperCost =5.5;}
+        childBoardCost = 0.5 * boardPrices[boards[loggedInRoomIndex]-1] * numChilds[loggedInRoomIndex] * days[loggedInRoomIndex];
+        totalBoardCost = childBoardCost + adultBoardCost;
+        totalBill = totalBoardCost + roomCost + newspaperCost;
 
+        printf("Thanks for stating %s %s.\nBookingID: %s", mainGuestName[loggedInRoomIndex][0],mainGuestName[loggedInRoomIndex][1], bookingIDs[loggedInRoomIndex]);
+        printf("Bill:\nRoom Cost: £%f\nBoard Cost: £%f\nNewspaper Cost: £%f\nTotal: £%f", roomCost,totalBoardCost,newspaperCost,totalBill);
+
+        if (tableData[0]==1) {
+            tableAvailability[tableData[1]][tableData[2]] = 0;
+        }
+
+        availableRooms[loggedInRoomIndex] = 0;
+        DOBs[loggedInRoomIndex][0] = 0;
+        DOBs[loggedInRoomIndex][1] = 0;
+        DOBs[loggedInRoomIndex][2] = 0;
+        boards[loggedInRoomIndex] = 0;
+        numAdults[loggedInRoomIndex] = 0;
+        numChilds[loggedInRoomIndex] = 0;
+        days[loggedInRoomIndex] = 0;
+        newspaper[loggedInRoomIndex] = 0;
+        tableData[0] = 0;
+        tableData[1] = 0;
+        tableData[2] = 0;
+
+        isLoggedIn = false;
+    }
 
 }
 
