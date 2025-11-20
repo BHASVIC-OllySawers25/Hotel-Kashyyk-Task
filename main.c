@@ -179,7 +179,7 @@ void checkIn() {
                 printf("\n========================================\n");
                 printf("     GUEST DETAILS - DATE OF BIRTH\n");
                 printf("========================================\n");
-                printf("Enter date of birth (DD/MM/YY format)\n");
+                printf("Enter date of birth (DD/MM/YYYY) format\n");
                 printf("Day: ");
                 scanf("%d", &day);
                 fflush(stdin);
@@ -259,7 +259,7 @@ void checkIn() {
                 printf("     GUEST DETAILS - NEWSPAPER\n");
                 printf("========================================\n");
                 printf("Would you like a daily newspaper?\n");
-                printf("(One-off charge of £5.50)\n");
+                printf("(One-off charge of $5.50)\n");
                 printf("1. Yes\n");
                 printf("2. No\n");
                 printf("\nEnter choice: ");
@@ -282,9 +282,9 @@ void checkIn() {
                 printf("     GUEST DETAILS - BOARD TYPE\n");
                 printf("========================================\n");
                 printf("Select your board type:\n");
-                printf("1. Bed & Breakfast (£5 per person per day)\n");
-                printf("2. Half Board (£15 per person per day)\n");
-                printf("3. Full Board (£20 per person per day)\n");
+                printf("1. Bed & Breakfast ($5 per person per day)\n");
+                printf("2. Half Board ($15 per person per day)\n");
+                printf("3. Full Board ($20 per person per day)\n");
                 printf("\nEnter choice: ");
                 scanf("%d", &boardChoice);
                 fflush(stdin);
@@ -306,7 +306,7 @@ void checkIn() {
                 printf("\n========================================\n");
                 printf("     SET ROOM BUDGET FILTER\n");
                 printf("========================================\n");
-                printf("Enter maximum room price per night (0 for all rooms): £");
+                printf("Enter maximum room price per night (0 for all rooms): $");
                 scanf("%d", &budget);
                 fflush(stdin);
 
@@ -336,7 +336,7 @@ void checkIn() {
                     continue;
                 }
 
-                printf("%d\t£%d\t\t", i+1, roomPrices[i]);
+                printf("%d\t$%d\t\t", i+1, roomPrices[i]);
 
                 if(availableRooms[i] == 0) {
                     printf("AVAILABLE\n");
@@ -505,7 +505,10 @@ void checkOut(void) {
         totalBill = totalBoardCost + roomCost + newspaperCost;
 
         printf("Thanks for stating %s %s.\nBookingID: %s", mainGuestName[loggedInRoomIndex][0],mainGuestName[loggedInRoomIndex][1], bookingIDs[loggedInRoomIndex]);
-        printf("Bill:\nRoom Cost: £%f\nBoard Cost: £%f\nNewspaper Cost: £%f\nTotal: £%f", roomCost,totalBoardCost,newspaperCost,totalBill);
+        printf("Bill:\nRoom Cost: $%f\nBoard Cost: $%f\nNewspaper Cost: $%f\nTotal: $%f", roomCost,totalBoardCost,newspaperCost,totalBill);
+        printf("\nPress Enter to continue...");
+        getchar();
+        getchar();
 
         if (tableData[0]==1) {
             tableAvailability[tableData[1]][tableData[2]] = 0;
@@ -525,6 +528,12 @@ void checkOut(void) {
         tableData[2] = 0;
 
         isLoggedIn = false;
+    }
+    else if (confirm==2){
+        printf("\nReturning to Menu.");
+    }
+    else {
+        printf("\nInvalid Choice. Reutrning to Menu.");
     }
 
 }
