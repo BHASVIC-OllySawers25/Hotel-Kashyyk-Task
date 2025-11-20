@@ -1,4 +1,4 @@
-
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -160,15 +160,40 @@ void checkIn() {
 
             // scrn 2 - get the guests names
             case 2:
-                printf("\n========================================\n");
-                printf("     GUEST DETAILS - NAME\n");
-                printf("========================================\n");
-                printf("Enter main guest's first name: ");
-                scanf("%s", firstName);
-                fflush(stdin);
-                printf("Enter main guest's surname: ");
-                scanf("%s", lastName);
-                fflush(stdin);
+                int name = 0,number=0;
+                while (name==0) {
+                    printf("\n========================================\n");
+                    printf("     GUEST DETAILS - NAME\n");
+                    printf("========================================\n");
+                    printf("Enter main guest's first name: ");
+                    scanf("%s", firstName);
+                    fflush(stdin);
+                    printf("Enter main guest's surname: ");
+                    scanf("%s", lastName);
+                    fflush(stdin);
+
+                    for(int i=0;i<strlen(firstName);i++) {
+                        if (strlwr(firstName)[i] <97 || strlwr(firstName)[i] >122) {
+                            number = 1;
+                        }
+                        else {
+                            number = 0;
+                        }
+                        if (strlwr(lastName)[i] <97 || strlwr(lastName)[i] >122) {
+                            number = 1;
+                        }
+                        else if (number == 0){
+                            number = 0;
+                        }
+                    }
+                    if (number == 1) {
+                        printf("Not a real name. Try Again.");
+                    }
+                    else {
+                        name = 1;
+                    }
+
+                }
 
                 screen = 3;  // got to scrn 3
                 break;
