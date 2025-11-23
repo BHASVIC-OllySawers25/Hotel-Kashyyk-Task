@@ -160,35 +160,20 @@ void checkIn() {
 
             // scrn 2 - get the guests names
             case 2:
-                int validName = 0,containsNumber=0;
-                while (validName==0) {
-                    containsNumber = 0;
-                    printf("\n========================================\n");
-                    printf("     GUEST DETAILS - NAME\n");
-                    printf("========================================\n");
-                    printf("Enter main guest's first name: ");
-                    scanf("%s", firstName);
-                    fflush(stdin);
-                    printf("Enter main guest's surname: ");
-                    scanf("%s", lastName);
-                    fflush(stdin);
 
-                    for(int i=0;i<strlen(firstName);i++) {
-                        if (strlwr(firstName)[i] <97 || strlwr(firstName)[i] >122) {
-                            containsNumber = 1;
-                        }
-                        if (strlwr(lastName)[i] <97 || strlwr(lastName)[i] >122) {
-                            containsNumber = 1;
-                        }
-                    }
-                    if (containsNumber == 1) {
-                        printf("Not a real name. Try Again.");
-                    }
-                    else {
-                        validName = 1;
-                    }
+                
 
-                }
+                printf("\n========================================\n");
+                printf("     GUEST DETAILS - NAME\n");
+                printf("========================================\n");
+                printf("Enter main guest's first name: ");
+                scanf("%s", firstName);
+                fflush(stdin);
+                printf("Enter main guest's surname: ");
+                scanf("%s", lastName);
+                fflush(stdin);
+
+
 
                 screen = 3;  // got to scrn 3
                 break;
