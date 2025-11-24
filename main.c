@@ -213,7 +213,7 @@ void checkIn() {
                     printf("\nERROR: Must have 1-4 guests.\n");
                     printf("Press Enter to try again...");
                     getchar();
-                    getchar();
+
                     break;  // stay on this scrn
                 }
 
@@ -228,7 +228,6 @@ void checkIn() {
                 if(adults + children != totalGuests) {
                     printf("\nERROR: Adults + Children must equal total guests!\n");
                     printf("Press Enter to try again...");
-                    getchar();
                     getchar();
                     break;  // stay on this scrn
                 }
@@ -249,7 +248,6 @@ void checkIn() {
                 if(stayDays < 1) {
                     printf("\nERROR: Must stay at least 1 day.\n");
                     printf("Press Enter to try again...");
-                    getchar();
                     getchar();
                     break;
                 }
@@ -297,7 +295,6 @@ void checkIn() {
                 if(boardChoice < 1 || boardChoice > 3) {
                     printf("\nERROR: Invalid choice. Please select 1, 2, or 3.\n");
                     printf("Press Enter to try again...");
-                    getchar();
                     getchar();
                     break;
                 }
@@ -383,7 +380,6 @@ void checkIn() {
                     printf("\nERROR: Invalid room number.\n");
                     printf("Press Enter to try again...");
                     getchar();
-                    getchar();
                     screen = 9;  // back to main display or the rooms
                     break;
                 }
@@ -392,7 +388,6 @@ void checkIn() {
                 if(availableRooms[roomChoice - 1] == 1) {
                     printf("\nERROR: Room %d is already occupied!\n", roomChoice);
                     printf("Press Enter to try again...");
-                    getchar();
                     getchar();
                     screen = 9;  // back to main display or the rooms
                     break;
@@ -438,7 +433,6 @@ void checkIn() {
                 printf("========================================\n");
 
                 printf("\nPress Enter to continue to your account...");
-                getchar();
                 getchar();
 
                 // automatically log them in via gateway using new ID
@@ -486,11 +480,8 @@ int loggedInMenu(void) {
 
 float discount(int dateOfBirth[3]) {
     float discount = 1;
-    int year, month, day;
-    time_t rawTime;
-    time(&rawTime);
-    year = (rawTime /60/60/24/365.25) +1970;
-    if (year-dateOfBirth[3] > 65) {
+    int year=2025, month, day;
+    if (year-dateOfBirth[3] >= 65) {
         discount = 0.9;
     }
     return discount;
@@ -510,9 +501,8 @@ void checkOut(void) {
         totalBill = totalBoardCost + roomCost + newspaperCost;
 
         printf("Thanks for stating %s %s.\nBookingID: %s", mainGuestName[loggedInRoomIndex][0],mainGuestName[loggedInRoomIndex][1], bookingIDs[loggedInRoomIndex]);
-        printf("Bill:\nRoom Cost: $%f\nBoard Cost: $%f\nNewspaper Cost: $%f\nTotal: $%f", roomCost,totalBoardCost,newspaperCost,totalBill);
+        printf("\n\nBill:\nRoom Cost: $%f\nBoard Cost: $%f\nNewspaper Cost: $%f\nTotal: $%f", roomCost,totalBoardCost,newspaperCost,totalBill);
         printf("\nPress Enter to continue...");
-        getchar();
         getchar();
 
         if (tableData[0]==1) {
