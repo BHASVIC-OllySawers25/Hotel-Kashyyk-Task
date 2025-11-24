@@ -544,7 +544,7 @@ void checkOut(void) {
 }
 
 void bookTable(void) {
-
+    printf("Table Booked.");
 }
 
 int main(void) {
