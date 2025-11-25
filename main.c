@@ -18,9 +18,9 @@ int numChilds[6] = {0,0,0,0,0,0};
 int days[6] = {0,0,0,0,0,0};
 int DOBs[6][3] = {{0,0,0},{0,0,0},{0,0,0},{0,0,0},{0,0,0},{0,0,0}};
 int newspaper[6] = {0,0,0,0,0,0};
-int tableAvailability[2][3] = {{0,0,0},{0,0,0}};
+int tableAvailability[6] = {0,0,0,0,0,0};
+int hasTable[6] = {0,0,0,0,0,0};
 int loggedInRoomIndex;
-int tableData[3] = {0,0,0};
 bool isLoggedIn;
 bool run;
 
@@ -161,7 +161,7 @@ void checkIn() {
             // scrn 2 - get the guests names
             case 2:
 
-                
+
 
                 printf("\n========================================\n");
                 printf("     GUEST DETAILS - NAME\n");
@@ -487,6 +487,45 @@ float discount(int dateOfBirth[3]) {
     return discount;
 }
 
+void bookTable()
+{
+    if (boards[loggedInRoomIndex] != 1) {
+
+        printf("\n========================================\n");
+        printf("     AVAILABLE TABLES\n");
+        printf("========================================\n");
+
+        int bookedTable = 0;
+        printf("Please select a table to use for the duration of your stay\t");
+        printf("\n1. Endor 7pm\n");
+        printf("2. Tatooine 7pm\n");
+        printf("3. Naboo 7pm\n");
+        printf("4. Endor 9pm\n");
+        printf("5. Tatooine 9pm\n");
+        printf("6. Naboo 9pm\n");
+
+        printf("Enter the number for the table you want");
+        scanf("%d", &bookedTable);
+        if (tableAvailability[bookedTable-1] == 0 && bookedTable > 0 && bookedTable < 7) {
+            printf("Table %d is now booked!\nCheck out to unbook table.", bookedTable);
+            tableAvailability[bookedTable-1] = 1;
+            hasTable[loggedInRoomIndex] = bookedTable;
+        }
+        else {
+            printf("Invalid Table or Table already booked or you already have a table.");
+        }
+
+
+    }
+
+    else {
+
+    printf("Cannot book table with b&b board.");
+
+    }
+
+}
+
 void checkOut(void) {
     float roomCost, adultBoardCost,childBoardCost,newspaperCost = 0,totalBoardCost, totalBill;
     int confirm = 0;
@@ -505,10 +544,11 @@ void checkOut(void) {
         printf("\nPress Enter to continue...");
         getchar();
 
-        if (tableData[0]==1) {
-            tableAvailability[tableData[1]][tableData[2]] = 0;
+        if (hasTable[loggedInRoomIndex]>0) {
+            tableAvailability[hasTable[loggedInRoomIndex]-1] = 0;
         }
 
+        hasTable[loggedInRoomIndex] = 0;
         availableRooms[loggedInRoomIndex] = 0;
         DOBs[loggedInRoomIndex][0] = 0;
         DOBs[loggedInRoomIndex][1] = 0;
@@ -518,9 +558,7 @@ void checkOut(void) {
         numChilds[loggedInRoomIndex] = 0;
         days[loggedInRoomIndex] = 0;
         newspaper[loggedInRoomIndex] = 0;
-        tableData[0] = 0;
-        tableData[1] = 0;
-        tableData[2] = 0;
+
 
         isLoggedIn = false;
     }
@@ -533,9 +571,7 @@ void checkOut(void) {
 
 }
 
-void bookTable(void) {
-    printf("Table Booked.");
-}
+
 
 int main(void) {
     // reset the variables to appropriate starting values js incase program ended

@@ -489,22 +489,33 @@ float discount(int dateOfBirth[3]) {
 
 void bookTable()
 {
-    printf("\n========================================\n");
-    printf("     AVAILABLE TABLES\n");
-    printf("========================================\n");
+    if (boards[loggedInRoomIndex] != 1) {
 
-    int bookedTable = 0;
-    printf("Please select a table to use for the duration of your stay\t");
-    printf("\n1. Endor 7pm\n");
-    printf("2. Tatooine 7pm\n");
-    printf("3. Naboo 7pm\n");
-    printf("4. Endor 9pm\n");
-    printf("5. Tatooine 9pm\n");
-    printf("6. Naboo 9pm\n");
+        printf("\n========================================\n");
+        printf("     AVAILABLE TABLES\n");
+        printf("========================================\n");
 
-    printf("Enter the number for the table you want");
-    scanf("%d", &bookedTable);
-    printf("Table %d is now booked!", bookedTable);
+        int bookedTable = 0;
+        printf("Please select a table to use for the duration of your stay\t");
+        printf("\n1. Endor 7pm\n");
+        printf("2. Tatooine 7pm\n");
+        printf("3. Naboo 7pm\n");
+        printf("4. Endor 9pm\n");
+        printf("5. Tatooine 9pm\n");
+        printf("6. Naboo 9pm\n");
+
+        printf("Enter the number for the table you want");
+        scanf("%d", &bookedTable);
+        printf("Table %d is now booked!", bookedTable);
+
+    }
+
+    else {
+
+    printf("Cannot book table with b&b board.");
+
+    }
+
 }
 
 void checkOut(void) {
