@@ -18,9 +18,9 @@ int numChilds[6] = {0,0,0,0,0,0};
 int days[6] = {0,0,0,0,0,0};
 int DOBs[6][3] = {{0,0,0},{0,0,0},{0,0,0},{0,0,0},{0,0,0},{0,0,0}};
 int newspaper[6] = {0,0,0,0,0,0};
-int tableAvailability[2][3] = {{0,0,0},{0,0,0}};
+int tableAvailability[6] = {0,0,0,0,0,0};
+int hasTable[6] = {0,0,0,0,0,0};
 int loggedInRoomIndex;
-int tableData[3] = {0,0,0};
 bool isLoggedIn;
 bool run;
 
@@ -506,7 +506,15 @@ void bookTable()
 
         printf("Enter the number for the table you want");
         scanf("%d", &bookedTable);
-        printf("Table %d is now booked!", bookedTable);
+        if (tableAvailability[bookedTable-1] == 0 && bookedTable > 0 && bookedTable < 7 && hasTable[loggedInRoomIndex] > 0) {
+            printf("Table %d is now booked!\nCheck out to unbook table.", bookedTable);
+            tableAvailability[bookedTable-1] = 1;
+            hasTable[loggedInRoomIndex] = bookedTable;
+        }
+        else {
+            printf("Invalid Table or Table already booked or you already have a table.");
+        }
+
 
     }
 
@@ -536,10 +544,11 @@ void checkOut(void) {
         printf("\nPress Enter to continue...");
         getchar();
 
-        if (tableData[0]==1) {
-            tableAvailability[tableData[1]][tableData[2]] = 0;
+        if (hasTable[loggedInRoomIndex]>0) {
+            tableAvailability[hasTable[loggedInRoomIndex]-1] = 0;
         }
 
+        hasTable[loggedInRoomIndex] = 0;
         availableRooms[loggedInRoomIndex] = 0;
         DOBs[loggedInRoomIndex][0] = 0;
         DOBs[loggedInRoomIndex][1] = 0;
@@ -549,9 +558,7 @@ void checkOut(void) {
         numChilds[loggedInRoomIndex] = 0;
         days[loggedInRoomIndex] = 0;
         newspaper[loggedInRoomIndex] = 0;
-        tableData[0] = 0;
-        tableData[1] = 0;
-        tableData[2] = 0;
+
 
         isLoggedIn = false;
     }
