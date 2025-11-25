@@ -506,7 +506,7 @@ void bookTable()
 
         printf("Enter the number for the table you want");
         scanf("%d", &bookedTable);
-        if (tableAvailability[bookedTable-1] == 0 && bookedTable > 0 && bookedTable < 7) {
+        if (tableAvailability[bookedTable-1] == 0 && bookedTable > 0 && bookedTable < 7 && hasTable[loggedInRoomIndex] > 0) {
             printf("Table %d is now booked!\nCheck out to unbook table.", bookedTable);
             tableAvailability[bookedTable-1] = 1;
             hasTable[loggedInRoomIndex] = bookedTable;
