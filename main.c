@@ -506,7 +506,7 @@ void bookTable()
 
         printf("Enter the number for the table you want");
         scanf("%d", &bookedTable);
-        if (tableAvailability[bookedTable-1] == 0 && bookedTable > 0 && bookedTable < 7 && hasTable[loggedInRoomIndex] > 0) {
+        if (tableAvailability[bookedTable-1] == 0 && bookedTable > 0 && bookedTable < 7 && hasTable[loggedInRoomIndex] == 0) {
             printf("Table %d is now booked!\nCheck out to unbook table.", bookedTable);
             tableAvailability[bookedTable-1] = 1;
             hasTable[loggedInRoomIndex] = bookedTable;
@@ -539,7 +539,7 @@ void checkOut(void) {
         totalBoardCost = childBoardCost + adultBoardCost;
         totalBill = totalBoardCost + roomCost + newspaperCost;
 
-        printf("Thanks for stating %s %s.\nBookingID: %s", mainGuestName[loggedInRoomIndex][0],mainGuestName[loggedInRoomIndex][1], bookingIDs[loggedInRoomIndex]);
+        printf("Thanks for staying %s %s.\nBookingID: %s", mainGuestName[loggedInRoomIndex][0],mainGuestName[loggedInRoomIndex][1], bookingIDs[loggedInRoomIndex]);
         printf("\n\nBill:\nRoom Cost: $%f\nBoard Cost: $%f\nNewspaper Cost: $%f\nTotal: $%f", roomCost,totalBoardCost,newspaperCost,totalBill);
         printf("\nPress Enter to continue...");
         getchar();

@@ -49,8 +49,8 @@ cmake_ninja_workdir = C$:/Users/nate.whelan25/Downloads/Hotel-Kashyyk-Task/cmake
 
 build cmake_object_order_depends_target_Hotel_Kashyyk_Task: phony || CMakeFiles/Hotel_Kashyyk_Task.dir
 
-build CMakeFiles/Hotel_Kashyyk_Task.dir/final_fr.c.obj: C_COMPILER__Hotel_Kashyyk_Task_unscanned_Debug C$:/Users/nate.whelan25/Downloads/Hotel-Kashyyk-Task/final$ fr.c || cmake_object_order_depends_target_Hotel_Kashyyk_Task
-  DEP_FILE = CMakeFiles\Hotel_Kashyyk_Task.dir\final_fr.c.obj.d
+build CMakeFiles/Hotel_Kashyyk_Task.dir/main.c.obj: C_COMPILER__Hotel_Kashyyk_Task_unscanned_Debug C$:/Users/nate.whelan25/Downloads/Hotel-Kashyyk-Task/main.c || cmake_object_order_depends_target_Hotel_Kashyyk_Task
+  DEP_FILE = CMakeFiles\Hotel_Kashyyk_Task.dir\main.c.obj.d
   FLAGS = -g -std=gnu11 -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\Hotel_Kashyyk_Task.dir
   OBJECT_FILE_DIR = CMakeFiles\Hotel_Kashyyk_Task.dir
@@ -63,7 +63,7 @@ build CMakeFiles/Hotel_Kashyyk_Task.dir/final_fr.c.obj: C_COMPILER__Hotel_Kashyy
 #############################################
 # Link the executable Hotel_Kashyyk_Task.exe
 
-build Hotel_Kashyyk_Task.exe: C_EXECUTABLE_LINKER__Hotel_Kashyyk_Task_Debug CMakeFiles/Hotel_Kashyyk_Task.dir/final_fr.c.obj
+build Hotel_Kashyyk_Task.exe: C_EXECUTABLE_LINKER__Hotel_Kashyyk_Task_Debug CMakeFiles/Hotel_Kashyyk_Task.dir/main.c.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\Hotel_Kashyyk_Task.dir
